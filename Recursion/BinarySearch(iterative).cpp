@@ -7,7 +7,7 @@ int binarySearch(int arr[], int size, int key){
     int mid, left=0, right=size-1;
 
     while(left <= right){
-        mid = (left + (right-left))/2;
+        mid = left + (right-left)/2;
         
         if(key == arr[mid]) return mid;
 
@@ -40,7 +40,7 @@ int main() {
     if(res == -1){
         cout << "Key Not Found!";
     }else{
-        cout << "Key Found at index: " << res;
+        cout << "Key Found at index position: " << res;
     }
     return 0;
 }
