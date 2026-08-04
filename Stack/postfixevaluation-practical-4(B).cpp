@@ -9,7 +9,7 @@ int tos = -1;
 
 using namespace std;
 
-int Cal(char op, int op1, int op2){
+int Cal(char op, int op1, int op2){ 
     int r;
     switch(op){
         case '+':
@@ -46,7 +46,7 @@ int main() {
     cin.getline(postfix, size);
 
     while(postfix[i] != '\0'){
-        if(isdigit(postfix[i])){
+        if(isdigit(postfix[i])){ //cctype library is imported to use this isdigit() function...
             push(stack, tos, postfix[i] - '0');
         } else {
             op2 = pop(stack, tos);
