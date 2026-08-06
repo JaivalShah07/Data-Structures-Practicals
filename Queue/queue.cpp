@@ -34,8 +34,7 @@ void enqueue(int x){
         exit(0);
     }
     else{
-        if (front == -1)
-        {
+        if (front == -1){
             front = 0;
         }
         queue[rear++] = x;

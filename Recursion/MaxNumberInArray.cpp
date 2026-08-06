@@ -4,7 +4,7 @@
 using namespace std;
 
 int maxOfArray(int p[], int n){
-    static int max = 0;
+    static int max = p[0];
     if(n==-1){
         return max;
     }
