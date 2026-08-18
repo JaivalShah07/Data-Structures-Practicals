@@ -1,17 +1,17 @@
+//Implementation of priority queue using the array
 #include <iostream>
-#include <cstdlib>
 using namespace std;
 
-#define s 5
+#define s 20
 int queue[s];
 int front = -1, rear = -1;
 
 int full() {
-    return ((rear + 1) % s == front);
+    return (rear == s - 1);
 }
 
 int empty() {
-    return (front == -1);
+    return (front == -1 || front > rear);
 }
 
 void enqueue(int x) {
@@ -19,16 +19,12 @@ void enqueue(int x) {
         cout << "Cannot add element.\n";
         return;
     }
-
-    if (empty()) {
+    
+    if (front == -1) {
         front = 0;
-        rear = 0;
-    } else {
-        rear = (rear + 1) % s;
     }
-
-    queue[rear] = x;
-    cout << "Successfully inserted " << x << endl;
+    queue[++rear] = x;
+    cout << "Successfully inserted: " << x << endl;
 }
 
 int dequeue() {
@@ -37,16 +33,20 @@ int dequeue() {
         return -1;
     }
 
-    int x = queue[front];
+    int min;
 
-    if (front == rear) {
-        front = -1;
-        rear = -1;
-    } else {
-        front = (front + 1) % s;
+    for(int i=0; i<=(rear+1)%s;i++){
+        if(queue[i] != -1){
+            if(queue[i] < min){
+                min = i;
+            }
+        }else{
+            continue;
+        }
     }
-
-    return x;
+    int res = queue[min];
+    queue[min] = -1;
+    return res;
 }
 
 void display() {
@@ -54,13 +54,10 @@ void display() {
         cout << "Queue is empty.\n";
         return;
     }
-
-    cout << "Queue elements are:  ";
-    int i = front;
-    while (true) {
+    
+    cout << "The elements in the queue are: ";
+    for (int i = front; i <= rear; i++) {
         cout << queue[i] << " ";
-        if (i == rear) break;
-        i = (i + 1) % s;
     }
     cout << endl;
 }
