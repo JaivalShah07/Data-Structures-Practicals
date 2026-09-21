@@ -76,40 +76,91 @@ void display(){
     cout << endl;
 }
 
-void deleteFirst(){
-    struct node* temp;
-    temp = first;
-    first = first -> next;
-    free(temp);
-}
+void deleteFirst() {
 
-void deleteLast(){
-    struct node* temp;
-    struct node* x;
-    temp = first;
-
-    while(temp->next->next != NULL){
-        temp = temp -> next;
+    if (first == NULL) {
+        cout << "List is empty!";
+        return;
     }
 
-    x = temp -> next;
-    temp -> next = NULL;
-    free(x);
+    node *temp = first;
+
+    first = first->next;
+
+    free(temp);
+
+    cout << "Deleted First!";
 }
 
-void deleteAtPosition(int pos){
-    struct node* temp;
-    struct node* x;
-    temp = first;
-    int i=0;
-    while(i < pos-1 && temp -> next != NULL){
-        temp = temp -> next;
+void deleteLast() {
+
+    if (first == NULL) {
+        cout << "List is empty!";
+        return;
+    }
+
+    // Only one node
+    if (first->next == NULL) {
+        free(first);
+        first = NULL;
+
+        cout << "Deleted Last!";
+        return;
+    }
+
+    node *temp = first;
+
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+
+    node *x = temp->next;
+
+    temp->next = NULL;
+
+    free(x);
+
+    cout << "Deleted Last!";
+}
+
+void deleteAtPosition(int pos) {
+
+    if (first == NULL) {
+        cout << "List is empty!";
+        return;
+    }
+
+    if (pos < 1) {
+        cout << "Invalid position!";
+        return;
+    }
+
+    if (pos == 1) {
+        deleteFirst();
+        return;
+    }
+
+    node *temp = first;
+    int i = 1;
+
+    while (i < pos - 1 && temp->next != NULL) {
+        temp = temp->next;
         i++;
     }
 
-    x = temp -> next;
-    temp -> next = x -> next;
+    // Position doesn't exist
+    if (temp->next == NULL || i != pos - 1) {
+        cout << "Invalid position!";
+        return;
+    }
+
+    node *x = temp->next;
+
+    temp->next = x->next;
+
     free(x);
+
+    cout << "Deleted node at position " << pos << "!";
 }
 
 int main() {
@@ -124,7 +175,7 @@ int main() {
         switch(choice){
             case 1: {
                 int x;
-                cout << "Enter val: ";
+                cout << "Enter val: ";  
                 cin >> x;
                 insertFirst(x);
                 break;
